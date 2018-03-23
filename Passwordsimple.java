@@ -1,16 +1,20 @@
-package Working_set;
+package Testarea;
 
+import com.oracle.tools.packager.Log;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.util.ArrayList;
+import javax.naming.Name;
+import javax.swing.JOptionPane;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Passwordsimple extends Application {
 

@@ -1,12 +1,10 @@
-package Working_set;
+package Testarea;
 
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.stage.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
+import javafx.scene.control.*;
+import javafx.geometry.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -43,6 +41,7 @@ public class Add_website {
                 webeingabe();
                 pweingabe();
             });
+
 //-----------Action for getting Password-----------------------------------------
             Button getpw = new Button("Get Password");
             GridPane.setConstraints(getpw,5,4);
@@ -52,9 +51,15 @@ public class Add_website {
                 String Message = "The password for " + webchoice + " is:\n" + requestedPW;
                 JOptionPane.showMessageDialog(null,Message,"" ,JOptionPane.PLAIN_MESSAGE);
             });
+//---------------------- Display All Websites ---------------------------------
+            Button displ_web = new Button("Display Websitelist");
+            GridPane.setConstraints(displ_web,5,5);
+            displ_web.setOnAction(e->{
+                shows_websiteList.display(Webnamen);
+            });
 //------------------------ Window Options -----------------------------------------
 
-            layout.getChildren().addAll(addweb,getpw);
+            layout.getChildren().addAll(addweb,getpw,displ_web);
             Scene scene = new Scene(layout, 300,300);
             window.setScene(scene);
             window.showAndWait();
