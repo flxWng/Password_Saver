@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javax.naming.Name;
 import javax.swing.JOptionPane;
+import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -73,12 +74,17 @@ public class Passwordsimple extends Application {
         Login = new Button("Login");
         GridPane.setConstraints(Login,1,4);
         Login.setOnAction(e->{
-            Filewebnames = shows_websiteList.read(existingUsers);
-            Passwordwusers = shows_websiteList.read(currUserPws);
-            Currentuser = show_user();
-            pssword = JOptionPane.showInputDialog("Enter Password", "Password");
-            loggedin = CheckIfInDatalist(Filewebnames,Passwordwusers,Currentuser,pssword);
-            loggedin = loggedin(loggedin);
+            try {
+                Filewebnames = shows_websiteList.read(existingUsers);
+                Passwordwusers = shows_websiteList.read(currUserPws);
+                Currentuser = show_user();
+                pssword = JOptionPane.showInputDialog("Enter Password", "Password");
+                loggedin = CheckIfInDatalist(Filewebnames, Passwordwusers, Currentuser, pssword);
+                loggedin = loggedin(loggedin);
+            }
+            catch (Exception e1){
+                JOptionPane.showMessageDialog(null,"No Existing Users","Error",JOptionPane.ERROR_MESSAGE);
+            }
         });
 
 // ******************************* ADD USER ********************************************************
