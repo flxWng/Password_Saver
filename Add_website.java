@@ -16,9 +16,10 @@ public class Add_website {
         static List Webnamen = new ArrayList();
         static List Password = new ArrayList();
         static String webchoice = "";
-        public static boolean display(String currentchoice){
-            Webnamen.add("Choose");
-            Stage window = new Stage();
+
+    public static boolean display(String currentchoice){
+        Webnamen.add("Choose");
+        Stage window = new Stage();
             //block user interaction with other windows until this is resolved
             window.initModality(Modality.APPLICATION_MODAL);
             window.setTitle(currentchoice + "'s mainpage");
@@ -40,6 +41,7 @@ public class Add_website {
                 }
                 webeingabe();
                 pweingabe();
+                writefile.main();
             });
 
 //-----------Action for getting Password-----------------------------------------

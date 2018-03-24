@@ -73,7 +73,7 @@ public class Passwordsimple extends Application {
             Currentuser = show_user();
             pssword = JOptionPane.showInputDialog("Enter Password", "Password");
             loggedin = CheckIfInDatalist(Namen,Passwoerter,Currentuser,pssword);
-            loggedin(loggedin);
+            loggedin = loggedin(loggedin);
         });
 
 // ******************************* ADD USER ********************************************************
@@ -167,11 +167,12 @@ public class Passwordsimple extends Application {
              return pssword;
          }
 
-         private void loggedin(Boolean success){
+         private Boolean loggedin(Boolean success){
             if (success){
                 Add_website.display(Currentuser);
             }
-
+            success = false;
+            return success;
          }
 //end
 }
