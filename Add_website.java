@@ -15,10 +15,20 @@ public class Add_website {
         static boolean answer;
         static List Webnamen = new ArrayList();
         static List Password = new ArrayList();
-        static String webchoice = "";
+        static List Filewebnames = new ArrayList();
+        static List PWnames = new ArrayList();
 
-    public static boolean display(String currentchoice){
-        Webnamen.add("Choose");
+    static String webchoice = "";
+
+    public static boolean display(String currentchoice, String currentpw){
+        // read the pw and website inputs from the .txt files
+        String currUserFilename = currentchoice + "_sites.txt";
+        String currUserPws = currentchoice + "_passwords.txt";
+        Filewebnames = shows_websiteList.read(currUserFilename);
+        PWnames = shows_websiteList.read(currUserPws);
+
+        //if filename exists, return true. Then don't create new file
+        //writefile.write(currentchoice,currentpw);
         Stage window = new Stage();
             //block user interaction with other windows until this is resolved
             window.initModality(Modality.APPLICATION_MODAL);
@@ -36,12 +46,12 @@ public class Add_website {
             Button addweb = new Button("Add Website");
             GridPane.setConstraints(addweb,5,3);
             addweb.setOnAction(e->{
-                if (Webnamen.get(0).equals("Choose")) {
-                    Webnamen.remove(0);
-                }
+//                if (Webnamen.get(0).equals("Choose")) {
+//                    Webnamen.remove(0);
+//                }
                 webeingabe();
                 pweingabe();
-                writefile.main();
+                //writefile.write(currentchoice,currentpw);
             });
 
 //-----------Action for getting Password-----------------------------------------
@@ -57,7 +67,7 @@ public class Add_website {
             Button displ_web = new Button("Display Websitelist");
             GridPane.setConstraints(displ_web,5,5);
             displ_web.setOnAction(e->{
-                shows_websiteList.display(Webnamen);
+                shows_websiteList.display(Webnamen,currentchoice);
             });
 //------------------------ Window Options -----------------------------------------
 
@@ -73,11 +83,11 @@ public class Add_website {
     private static String show_websites() {
             Object selectedValue;
             String CurrentChoice = "";
-            String[] Liste = (String[]) Webnamen.toArray(new String[0]);
-            String ifempty = (String) Webnamen.get(0);
-            if (ifempty.equals("Choose")){
-                Webnamen.remove(0);
-            }
+            String[] Liste = (String[]) Filewebnames.toArray(new String[0]);
+//            String ifempty = (String) PWnames.get(0);
+//            if (ifempty.equals("Choose")){
+//                Webnamen.remove(0);
+//            }
             selectedValue = JOptionPane.showInputDialog(null,
                     "Choose one", "Websites",
                     JOptionPane.INFORMATION_MESSAGE, null,
@@ -99,9 +109,9 @@ public class Add_website {
 
     private static String checkifavailable(String webname) {
             String password_for_site ="Error";
-        String[] Webliste = (String[]) Webnamen.toArray(new String[0]);
-        String[] PWliste = (String[]) Password.toArray(new String[0]);
-        int laenge = Webnamen.size();
+        String[] Webliste = (String[]) Filewebnames.toArray(new String[0]);
+        String[] PWliste = (String[]) PWnames.toArray(new String[0]);
+        int laenge = Filewebnames.size();
         for (int i = 0; i< laenge;i++)
         {
             if (webname.equals(Webliste[i])){

@@ -4,42 +4,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Readfile {
-    public static void main(String [] args) {
-        List Read = new ArrayList();
+    public static List read(String Uname) {
+        List ReadWebn= new ArrayList();
         // The name of the file to open.
-        String fileName = "write.txt";
-
+        String Namelist = Uname;
         // This will reference one line at a time
         String line = null;
 
         try {
             // FileReader reads text files in the default encoding.
-            FileReader fileReader =
-                    new FileReader(fileName);
+            FileReader Ureader =
+                    new FileReader(Namelist);
+
 
             // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader =
-                    new BufferedReader(fileReader);
+            BufferedReader bufferedUreader =
+                    new BufferedReader(Ureader);
 
-            while((line = bufferedReader.readLine()) != null) {
-                System.out.println(line);
-                Read.add(line);
+            while((line = bufferedUreader.readLine()) != null) {
+                //System.out.println(line);
+                ReadWebn.add(line);
             }
 
             // Always close files.
-            bufferedReader.close();
+            bufferedUreader.close();
         }
         catch(FileNotFoundException ex) {
             System.out.println(
                     "Unable to open file '" +
-                            fileName + "'");
+                            Namelist + "'");
         }
         catch(IOException ex) {
             System.out.println(
                     "Error reading file '"
-                            + fileName + "'");
+                            + Namelist + "'");
             // Or we could just do this:
             // ex.printStackTrace();
         }
+        return ReadWebn;
     }
 }
