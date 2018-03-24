@@ -9,17 +9,9 @@ public class Testmain {
 
     public static void main(String[] args) {
         //red out list with websites
-        String User = "Felix_sites.txt";
-        a = Readfile.read(User);
-        a.clear();
-        //Read out list with passwords
-        String PW = "Felix_passwords.txt";
-        a = Readfile.read(PW);
+        String User = "Georg_sites.txt";
+        writefile.write(User);
         //Print out new list
-        for (int i = 0; i< a.size();i++)
-        {
-            System.out.println(a.get(i));
-        }
 
 
     }
