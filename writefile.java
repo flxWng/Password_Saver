@@ -4,32 +4,28 @@ import java.io.*;
 import java.util.List;
 
 public class writefile {
-        public static void write(String Username, String PW) {
+        public static void write(String Username) {
 
             // The name of the file to open.
-            String Namelist = Username +"_sites.txt";
-            String PWlist = Username +"_passwords.txt";
+            String Namelist = Username;
             try {
                 // Assume default encoding.
+                //true means file is not overwritten
                 FileWriter fileWriterUser =
-                        new FileWriter(Namelist);
-                FileWriter fileWriterPW =
-                        new FileWriter(PWlist);
+                        new FileWriter(Namelist,true); 
 
                 // Always wrap FileWriter in BufferedWriter.
                 BufferedWriter userWriter =
                         new BufferedWriter(fileWriterUser);
-                BufferedWriter pwWriter =
-                        new BufferedWriter(fileWriterPW);
 
                 // Note that write() does not automatically
                 // append a newline character.
-                //userWriter.write("Website1");
-                //userWriter.newLine();
+                userWriter.newLine();
+                userWriter.write("newaddedWebsite");
+
 
                 // Always close files.
                 userWriter.close();
-                pwWriter.close();
             }
             catch(IOException ex) {
                 System.out.println(
