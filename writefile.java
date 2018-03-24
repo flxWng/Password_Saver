@@ -1,34 +1,40 @@
 package Testarea;
 
 import java.io.*;
+import java.util.List;
 
-    public class writefile {
-        public static void main() {
+public class writefile {
+        public static void write(String Username, String PW) {
 
             // The name of the file to open.
-            String fileName = "write1.txt";
-
+            String Namelist = Username +"_sites.txt";
+            String PWlist = Username +"_passwords.txt";
             try {
                 // Assume default encoding.
-                FileWriter fileWriter =
-                        new FileWriter(fileName);
+                FileWriter fileWriterUser =
+                        new FileWriter(Namelist);
+                FileWriter fileWriterPW =
+                        new FileWriter(PWlist);
 
                 // Always wrap FileWriter in BufferedWriter.
-                BufferedWriter bufferedWriter =
-                        new BufferedWriter(fileWriter);
+                BufferedWriter userWriter =
+                        new BufferedWriter(fileWriterUser);
+                BufferedWriter pwWriter =
+                        new BufferedWriter(fileWriterPW);
 
                 // Note that write() does not automatically
                 // append a newline character.
-                bufferedWriter.write("Website1");
-                bufferedWriter.newLine();
+                //userWriter.write("Website1");
+                //userWriter.newLine();
 
                 // Always close files.
-                bufferedWriter.close();
+                userWriter.close();
+                pwWriter.close();
             }
             catch(IOException ex) {
                 System.out.println(
                         "Error writing to file '"
-                                + fileName + "'");
+                                + Namelist + "'");
                 // Or we could just do this:
                 // ex.printStackTrace();
             }

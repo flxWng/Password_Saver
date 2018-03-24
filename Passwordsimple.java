@@ -10,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
 import javax.naming.Name;
 import javax.swing.JOptionPane;
 import java.util.List;
@@ -39,7 +38,7 @@ public class Passwordsimple extends Application {
 
         // Add test variables
         Namen.add("Choose");
-        Add_website.display(Currentuser);
+        //Add_website.display(Currentuser,pssword);
 
         //
         GridPane grid = new GridPane();
@@ -169,7 +168,7 @@ public class Passwordsimple extends Application {
 
          private Boolean loggedin(Boolean success){
             if (success){
-                Add_website.display(Currentuser);
+                Add_website.display(Currentuser,pssword);
             }
             success = false;
             return success;
