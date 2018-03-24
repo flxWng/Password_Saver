@@ -20,7 +20,7 @@ public class Passwordsimple extends Application {
     public static Stage window;
     Button Login, adduser,choose_user;
     String Username, pssword;
-    List<String> Namen,Passwoerter,User_saved,Pw_saved;
+    List<String> Namen,Passwoerter,User_saved,Pw_saved,Filewebnames,Passwordwusers;
     String Currentuser = "Choose";
     Boolean loggedin;
 
@@ -35,7 +35,11 @@ public class Passwordsimple extends Application {
         Passwoerter = new ArrayList();
         User_saved = new ArrayList();
         Pw_saved = new ArrayList<>();
-
+        Filewebnames = new ArrayList<>();
+        String existingUsers = "Userlist.txt";
+        String currUserPws = "Userpw.txt";
+        Filewebnames = shows_websiteList.read(existingUsers);
+        Passwordwusers = shows_websiteList.read(currUserPws);
         // Add test variables
         Namen.add("Choose");
         //Add_website.display(Currentuser,pssword);
@@ -60,8 +64,8 @@ public class Passwordsimple extends Application {
         choose_user = new Button("Choose existing Users");
         GridPane.setConstraints(choose_user, 1, 3);
         choose_user.setOnAction(e -> {
+            Filewebnames = shows_websiteList.read(existingUsers);
             Currentuser = show_user();
-            System.out.print(Currentuser);
         });
  // ********************************* LOG IN OF EXISTING USERS****************************************************
 
@@ -69,9 +73,11 @@ public class Passwordsimple extends Application {
         Login = new Button("Login");
         GridPane.setConstraints(Login,1,4);
         Login.setOnAction(e->{
+            Filewebnames = shows_websiteList.read(existingUsers);
+            Passwordwusers = shows_websiteList.read(currUserPws);
             Currentuser = show_user();
             pssword = JOptionPane.showInputDialog("Enter Password", "Password");
-            loggedin = CheckIfInDatalist(Namen,Passwoerter,Currentuser,pssword);
+            loggedin = CheckIfInDatalist(Filewebnames,Passwordwusers,Currentuser,pssword);
             loggedin = loggedin(loggedin);
         });
 
@@ -81,11 +87,13 @@ public class Passwordsimple extends Application {
         GridPane.setConstraints(adduser, 1, 2);
         adduser.setOnAction(e -> {
             //Action of Click goes here
+            Filewebnames = shows_websiteList.read(existingUsers);
+            Passwordwusers = shows_websiteList.read(currUserPws);
             Username = JOptionPane.showInputDialog("Enter Username", "Username");
-            Namen.add(Username);
-            Passwoerter.add(enter_pw());
+            writefile.write(existingUsers,Username);
+            pssword = enter_pw();
+            writefile.write(currUserPws,pssword);
         });
-
 
         // ******************************** SHOW BUTTON *******************************************************
         //which buttons are added to the grid
@@ -111,19 +119,8 @@ public class Passwordsimple extends Application {
         Boolean success = false;
         int laenge = Uname.size();
         for (int i = 0; i < laenge; i++) {
-            String ifempty = Namen.get(0);
-            if (ifempty.equals("Choose")){
-                JOptionPane.showMessageDialog(null,
-                        "No users available",
-                        "Failed Login", JOptionPane.ERROR_MESSAGE);
-                break;
-            }
-
             if (Uname.get(i).equals(NamEing)) {
                 if (PW.get(i).equals(PwEing)) {
-//                    JOptionPane.showMessageDialog(null,
-//                            "Login Successful!",
-//                            "Success", JOptionPane.PLAIN_MESSAGE);
                     success = true;
                     break;
                 }
@@ -148,11 +145,7 @@ public class Passwordsimple extends Application {
         private String show_user() {
             Object selectedValue;
             String CurrentChoice = "";
-            String[] Liste = Namen.toArray(new String[0]);
-            String ifempty = Namen.get(0);
-            if (ifempty.equals("Choose")){
-                Namen.remove(0);
-            }
+            String[] Liste = Filewebnames.toArray(new String[0]);
             selectedValue = JOptionPane.showInputDialog(null,
                     "Choose one", "Users",
                     JOptionPane.INFORMATION_MESSAGE, null,
