@@ -37,6 +37,7 @@ public class shows_websiteList {
 
     private static String fillLabel(List liste){
         String message = new String();
+        message = "Your websites:\n";
         String[] containsMessage = (String[]) liste.toArray(new String[0]);
         int laenge = liste.size();
         for (int i = 0; i< laenge;i++)
