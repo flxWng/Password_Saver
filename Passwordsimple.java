@@ -168,7 +168,7 @@ public class Passwordsimple extends Application {
 
          private Boolean loggedin(Boolean success){
             if (success){
-                Add_website.display(Currentuser,pssword);
+                Add_website.display(Currentuser);
             }
             success = false;
             return success;

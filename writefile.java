@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.List;
 
 public class writefile {
-        public static void write(String Username) {
+        public static void write(String Username,String eingabe) {
 
             // The name of the file to open.
             String Namelist = Username;
@@ -12,7 +12,7 @@ public class writefile {
                 // Assume default encoding.
                 //true means file is not overwritten
                 FileWriter fileWriterUser =
-                        new FileWriter(Namelist,true); 
+                        new FileWriter(Namelist,true);
 
                 // Always wrap FileWriter in BufferedWriter.
                 BufferedWriter userWriter =
@@ -21,7 +21,7 @@ public class writefile {
                 // Note that write() does not automatically
                 // append a newline character.
                 userWriter.newLine();
-                userWriter.write("newaddedWebsite");
+                userWriter.write(eingabe);
 
 
                 // Always close files.
