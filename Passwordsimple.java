@@ -24,6 +24,7 @@ public class Passwordsimple extends Application {
     List<String> Namen,Passwoerter,User_saved,Pw_saved,Filewebnames,Passwordwusers;
     String Currentuser = "Choose";
     Boolean loggedin;
+    Boolean haveentry;
 
     public static void main(String[] args) {
         launch(args);
@@ -78,9 +79,15 @@ public class Passwordsimple extends Application {
                 Filewebnames = shows_websiteList.read(existingUsers);
                 Passwordwusers = shows_websiteList.read(currUserPws);
                 Currentuser = show_user();
+                pssword = null;
                 pssword = JOptionPane.showInputDialog("Enter Password", "Password");
-                loggedin = CheckIfInDatalist(Filewebnames, Passwordwusers, Currentuser, pssword);
-                loggedin = loggedin(loggedin);
+                if (pssword == null){
+                    System.out.println("no password for chosen user");
+                }
+                else {
+                    loggedin = CheckIfInDatalist(Filewebnames, Passwordwusers, Currentuser, pssword);
+                    loggedin = loggedin(loggedin);
+                }
             }
             catch (Exception e1){
                 JOptionPane.showMessageDialog(null,"No Existing Users","Error",JOptionPane.ERROR_MESSAGE);
@@ -95,10 +102,7 @@ public class Passwordsimple extends Application {
             //Action of Click goes here
             Filewebnames = shows_websiteList.read(existingUsers);
             Passwordwusers = shows_websiteList.read(currUserPws);
-            Username = JOptionPane.showInputDialog("Enter Username", "Username");
-            writefile.write(existingUsers,Username);
-            pssword = enter_pw();
-            writefile.write(currUserPws,pssword);
+            abbortUserEntry(currUserPws,existingUsers);
         });
 
         // ******************************** SHOW BUTTON *******************************************************
@@ -172,5 +176,24 @@ public class Passwordsimple extends Application {
             success = false;
             return success;
          }
+        private Boolean abbortUserEntry(String currUserPws, String existingUsers){
+        Boolean entry = false;
+            Username = JOptionPane.showInputDialog("Enter Username", "Username");
+            if (Username == null) {
+                System.out.println("no username entry");
+            }
+            else{
+                pssword = enter_pw();
+                if (pssword == null) {
+                    System.out.println("no password entry");
+                }
+                else {
+                    writefile.write(currUserPws, pssword);
+                    writefile.write(existingUsers,Username);
+                    entry = true;
+                }
+            }
+            return entry;
+        }
 //end
 }
