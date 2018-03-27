@@ -168,6 +168,7 @@ public class Passwordsimple extends Application {
              pssword = JOptionPane.showInputDialog("Enter Password", "Password");
              return pssword;
          }
+    // ****************************** Check if pw correct *********************************************************
 
          private Boolean loggedin(Boolean success){
             if (success){
@@ -176,7 +177,9 @@ public class Passwordsimple extends Application {
             success = false;
             return success;
          }
-        private Boolean abbortUserEntry(String currUserPws, String existingUsers){
+    // ****************************** Abbort writing file if no user****************************************************
+
+    private Boolean abbortUserEntry(String currUserPws, String existingUsers){
         Boolean entry = false;
             Username = JOptionPane.showInputDialog("Enter Username", "Username");
             if (Username == null) {

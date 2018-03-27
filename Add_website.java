@@ -1,11 +1,9 @@
 package Testarea;
-
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
-
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,8 +12,6 @@ import java.util.List;
 public class Add_website {
 
         static boolean answer;
-        static List Webnamen = new ArrayList();
-        static List Password = new ArrayList();
         static List Filewebnames = new ArrayList();
         static List PWnames = new ArrayList();
 
@@ -29,7 +25,6 @@ public class Add_website {
         PWnames = shows_websiteList.read(currUserPws);
 
         //if filename exists, return true. Then don't create new file
-        //writefile.write(currentchoice,currentpw);
         Stage window = new Stage();
             //block user interaction with other windows until this is resolved
             window.initModality(Modality.APPLICATION_MODAL);
@@ -54,12 +49,17 @@ public class Add_website {
             Button getpw = new Button("Get Password");
             GridPane.setConstraints(getpw,5,4);
             getpw.setOnAction(e->{
-                Filewebnames = shows_websiteList.read(currUserFilename);
-                PWnames = shows_websiteList.read(currUserPws);
-                webchoice = show_websites();
-                String requestedPW = checkifavailable(webchoice);
-                String Message = "The password for " + webchoice + " is:\n" + requestedPW;
-                JOptionPane.showMessageDialog(null,Message,"" ,JOptionPane.PLAIN_MESSAGE);
+                try {
+                    Filewebnames = shows_websiteList.read(currUserFilename);
+                    PWnames = shows_websiteList.read(currUserPws);
+                    webchoice = show_websites();
+                    String requestedPW = checkifavailable(webchoice);
+                    String Message = "The password for " + webchoice + " is:\n" + requestedPW;
+                    JOptionPane.showMessageDialog(null, Message, "", JOptionPane.PLAIN_MESSAGE);
+                }
+                catch (Exception ex){
+                    JOptionPane.showMessageDialog(null,"No website entries yet");
+                }
             });
 //---------------------- Display All Websites ---------------------------------
             Button displ_web = new Button("Display Websitelist");
@@ -67,15 +67,13 @@ public class Add_website {
             displ_web.setOnAction(e->{
                 Filewebnames = shows_websiteList.read(currUserFilename);
                 PWnames = shows_websiteList.read(currUserPws);
-                shows_websiteList.display(Webnamen,currentchoice);
+                shows_websiteList.display(currentchoice);
             });
 //------------------------ Window Options -----------------------------------------
-
             layout.getChildren().addAll(addweb,getpw,displ_web);
             Scene scene = new Scene(layout, 300,300);
             window.setScene(scene);
             window.showAndWait();
-
             return answer;
         }
 
@@ -91,24 +89,33 @@ public class Add_website {
             CurrentChoice = "" + selectedValue;
             return CurrentChoice;
     }
-    private static void websiteeingabe(String currentUser){
-        webeingabe(currentUser);
-        pweingabe(currentUser);
+    // ****************************** Enter website*********************************************************
 
+    private static void websiteeingabe(String currentUser){
+        eingabe(currentUser);
     }
-    private static String pweingabe(String currPW) {
-        String pweingabe = JOptionPane.showInputDialog("Enter Password", "Password");
-        // write to file
-        String FilenameU = currPW + "_passwords.txt";
-        writefile.write(FilenameU,pweingabe);
-        return pweingabe;
-    }
-    private static String webeingabe(String CurrU) {
+    // ****************************** Enter Password *********************************************************
+
+    private static String eingabe(String CurrU) {
+        String FilenameU = CurrU + "_sites.txt";
+        String FilenamePW = CurrU + "_passwords.txt";
         String seiteeingabe = JOptionPane.showInputDialog("Enter Website", "Website");
-        String FilenamePW = CurrU + "_sites.txt";
-        writefile.write(FilenamePW,seiteeingabe);
+        if (seiteeingabe == null){
+            System.out.println("No website entry");
+        }
+        else{
+            String pweingabe = JOptionPane.showInputDialog("Enter Password", "Password");
+            if (pweingabe == null){
+                System.out.println("No password entered");
+            }
+            else {
+                writefile.write(FilenameU, seiteeingabe);
+                writefile.write(FilenamePW, pweingabe);
+            }
+        }
         return seiteeingabe;
     }
+    // ****************************** Check if website avail *********************************************************
 
     private static String checkifavailable(String webname) {
         String password_for_site ="Error";

@@ -18,8 +18,8 @@ import java.util.List;
 
 public class shows_websiteList {
 
-    public static void display(List Hallo,String currentuser){
-        List Filewebnames = new ArrayList();
+    public static void display(String currentuser){
+        List Filewebnames;
         String currUserFilename = currentuser + "_sites.txt";
         Filewebnames = read(currUserFilename);
         Stage window = new Stage();
@@ -44,7 +44,7 @@ public class shows_websiteList {
     }
 
     private static String fillLabel(List liste){
-        String message = new String();
+        String message;
         message = "Your websites:\n";
         String[] containsMessage = (String[]) liste.toArray(new String[0]);
         int laenge = liste.size();
@@ -67,17 +67,13 @@ public class shows_websiteList {
             // FileReader reads text files in the default encoding.
             FileReader Ureader =
                     new FileReader(Namelist);
-
-
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedUreader =
                     new BufferedReader(Ureader);
-
             while((line = bufferedUreader.readLine()) != null) {
                 //System.out.println(line);
                 ReadWebn.add(line);
             }
-
             // Always close files.
             bufferedUreader.close();
         }
